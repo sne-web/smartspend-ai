@@ -1,4 +1,7 @@
+from datetime import date as date_type
+
 from fastapi import APIRouter, Depends, HTTPException
+from sqlalchemy import func
 from sqlalchemy.orm import Session
 
 from app.database import get_db
@@ -38,13 +41,26 @@ def create_transaction(
 def list_transactions(
     skip: int = 0,
     limit: int = 50,
+    merchant: str | None = None,
+    category: str | None = None,
+    date: date_type | None = None,
+    type: str | None = None,
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
+    query = db.query(Transaction).filter(Transaction.user_id == current_user.id)
+
+    if merchant is not None:
+        query = query.filter(Transaction.merchant.ilike(f"%{merchant}%"))
+    if category is not None:
+        query = query.filter(Transaction.category.ilike(f"%{category}%"))
+    if date is not None:
+        query = query.filter(func.date(Transaction.date) == date.isoformat())
+    if type is not None:
+        query = query.filter(Transaction.type == type)
+
     return (
-        db.query(Transaction)
-        .filter(Transaction.user_id == current_user.id)
-        .order_by(Transaction.date.desc())
+        query.order_by(Transaction.date.desc())
         .offset(skip)
         .limit(limit)
         .all()
