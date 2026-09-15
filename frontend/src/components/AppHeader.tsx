@@ -1,0 +1,43 @@
+import { Link, useNavigate } from "react-router-dom"
+import { useAuth } from "../context/AuthContext"
+
+function AppHeader({ active }: { active: "dashboard" | "transactions" }) {
+  const { user, logout } = useAuth()
+  const navigate = useNavigate()
+
+  function handleLogout() {
+    logout()
+    navigate("/login")
+  }
+
+  function linkClass(page: "dashboard" | "transactions") {
+    return `hover:text-white transition-colors ${active === page ? "text-white font-semibold" : "text-white/80"}`
+  }
+
+  return (
+    <header className="bg-[#5E0B15] px-6 py-4 flex items-center justify-between">
+      <div className="flex items-center gap-6">
+        <h1 className="text-xl font-bold text-white">SmartSpend AI</h1>
+        <nav className="flex items-center gap-4 text-sm">
+          <Link to="/dashboard" className={linkClass("dashboard")}>
+            Dashboard
+          </Link>
+          <Link to="/transactions" className={linkClass("transactions")}>
+            Transactions
+          </Link>
+        </nav>
+      </div>
+      <div className="flex items-center gap-4">
+        <span className="text-white/80 text-sm hidden sm:inline">{user?.email}</span>
+        <button
+          onClick={handleLogout}
+          className="bg-[#90323D] text-white font-medium rounded px-4 py-2 hover:bg-[#a13c48] transition-colors"
+        >
+          Log out
+        </button>
+      </div>
+    </header>
+  )
+}
+
+export default AppHeader

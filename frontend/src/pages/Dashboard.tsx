@@ -1,5 +1,4 @@
 import { useEffect, useState, type ReactNode } from "react"
-import { useNavigate } from "react-router-dom"
 import {
   Bar,
   BarChart,
@@ -11,6 +10,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts"
+import AppHeader from "../components/AppHeader"
 import { useAuth } from "../context/AuthContext"
 import {
   getCategoryBreakdown,
@@ -126,8 +126,7 @@ function SectionState({
 }
 
 function Dashboard() {
-  const { user, logout } = useAuth()
-  const navigate = useNavigate()
+  const { user } = useAuth()
 
   const [preset, setPreset] = useState<DateRangePreset>("30d")
   const [range, setRange] = useState<DateRange | null>(null)
@@ -234,25 +233,9 @@ function Dashboard() {
     }
   }, [])
 
-  function handleLogout() {
-    logout()
-    navigate("/login")
-  }
-
   return (
     <div className="min-h-screen bg-[#D9CAB3]">
-      <header className="bg-[#5E0B15] px-6 py-4 flex items-center justify-between">
-        <h1 className="text-xl font-bold text-white">SmartSpend AI</h1>
-        <div className="flex items-center gap-4">
-          <span className="text-white/80 text-sm hidden sm:inline">{user?.email}</span>
-          <button
-            onClick={handleLogout}
-            className="bg-[#90323D] text-white font-medium rounded px-4 py-2 hover:bg-[#a13c48] transition-colors"
-          >
-            Log out
-          </button>
-        </div>
-      </header>
+      <AppHeader active="dashboard" />
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-6 flex flex-col gap-6">
         <div className="flex items-center gap-3">
