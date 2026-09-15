@@ -1,0 +1,169 @@
+merchant,description,category
+PayPal Transfer,POS purchase at PayPal Transfer,Others
+Local Charity,Local Charity - card transaction,Others
+Comcast Xfinity,Recurring bill - Comcast Xfinity,Bills
+Amazon,Debit card purchase: Amazon,Education
+Old Navy,AMZN MKTP US - Old Navy,Shopping
+ATM,Miscellaneous payment - ATM,Others
+Best Buy,Retail purchase at Best Buy,Shopping
+Uber Eats,Food delivery order - Uber Eats,Food
+Spotify,Spotify - music while working out,Entertainment
+Uber,Car rental - Uber,Transport
+Dental Care Associates,Urgent care visit - Dental Care Associates,Healthcare
+Toll Road Authority,Toll Road Authority - card transaction,Transport
+Nordstrom,Nordstrom - card transaction,Shopping
+Bank,Purchase - Bank,Others
+H&M,Electronics purchase at H&M,Shopping
+Etsy,AMZN MKTP US - Etsy,Shopping
+Safeway,Safeway - card transaction,Food
+Spotify,Payment to Spotify,Bills
+Amazon,Textbook purchase - Amazon,Education
+Whole Foods,Lunch at Whole Foods,Food
+Enterprise Rent-A-Car,Car rental - Enterprise Rent-A-Car,Transport
+City Medical Clinic,Prescription pickup - City Medical Clinic,Healthcare
+Physical Therapy Center,Debit card purchase: Physical Therapy Center,Healthcare
+Bowling Alley,Payment to Bowling Alley,Entertainment
+Costco,Online order - Costco,Shopping
+City Medical Clinic,Eye exam - City Medical Clinic,Healthcare
+School Supplies Store,Tuition payment - School Supplies Store,Education
+Local Cinema,Payment to Local Cinema,Entertainment
+Netflix,Netflix - movie night,Entertainment
+Subway,Debit card purchase: Subway,Food
+Subway,Dinner with friends at Subway,Food
+Udemy,Purchase - Udemy,Education
+Safeway,Purchase - Safeway,Food
+City Power & Water,Recurring bill - City Power & Water,Bills
+Spotify,POS purchase at Spotify,Bills
+H&M,Retail purchase at H&M,Shopping
+Old Navy,Purchase - Old Navy,Shopping
+Cash App,Cash App - card transaction,Others
+AT&T,Debit card purchase: AT&T,Bills
+Amazon,AMZN MKTP US - textbook for CS101,Education
+Dunkin',Payment to Dunkin',Food
+Amtrak,Ride home - Amtrak,Transport
+Walgreens,Debit card purchase: Walgreens,Healthcare
+Campus Bookstore,Tuition payment - Campus Bookstore,Education
+Amazon,Electronics purchase at Amazon,Shopping
+Local Diner,Lunch at Local Diner,Food
+Chevron,Flight booking - Chevron,Transport
+Starbucks,Dinner with friends at Starbucks,Food
+Blue Cross Insurance,Urgent care visit - Blue Cross Insurance,Healthcare
+Nike,Home goods - Nike,Shopping
+PayPal Transfer,Charitable donation - PayPal Transfer,Others
+Trader Joe's,Weekly grocery shopping - Trader Joe's,Food
+Netflix,Insurance premium - Netflix,Bills
+CVS Pharmacy,Eye exam - CVS Pharmacy,Healthcare
+Netflix,Payment to Netflix,Entertainment
+Physical Therapy Center,Eye exam - Physical Therapy Center,Healthcare
+Dental Care Associates,Prescription pickup - Dental Care Associates,Healthcare
+Venmo,POS purchase at Venmo,Others
+Target,Target - home decor purchase,Shopping
+Vision Center,Payment to Vision Center,Healthcare
+Delta Airlines,Flight booking - Delta Airlines,Transport
+Local Diner,Local Diner - card transaction,Food
+Urgent Care Clinic,Eye exam - Urgent Care Clinic,Healthcare
+Gift Shop,Gift Shop - card transaction,Others
+PlayStation Store,Purchase - PlayStation Store,Entertainment
+Ticketmaster,Weekend outing - Ticketmaster,Entertainment
+State Farm Insurance,Utility bill payment - State Farm Insurance,Bills
+Property Management Co,Property Management Co - autopay,Bills
+Panera Bread,Grocery purchase at Panera Bread,Food
+AMC Theatres,Video game purchase - AMC Theatres,Entertainment
+School Supplies Store,School Supplies Store - card transaction,Education
+Vision Center,Health insurance premium - Vision Center,Healthcare
+Verizon,Debit card purchase: Verizon,Bills
+McDonald's,Coffee run - McDonald's,Food
+Chevron,Debit card purchase: Chevron,Transport
+Local Charity,Debit card purchase: Local Charity,Others
+Costco,Grocery run - Costco,Food
+Walgreens,Toiletries and candy - Walgreens,Shopping
+Lyft,Purchase - Lyft,Transport
+Urgent Care Clinic,Doctor visit copay - Urgent Care Clinic,Healthcare
+Panera Bread,Payment to Panera Bread,Food
+Dunkin',Purchase - Dunkin',Food
+Uber,POS purchase at Uber,Transport
+Venmo,Charitable donation - Venmo,Others
+Ticketmaster,Ticketmaster - card transaction,Entertainment
+Metro Transit,Gas station fill-up - Metro Transit,Transport
+Netflix,Netflix - autopay,Bills
+Comcast Xfinity,Comcast Xfinity - autopay,Bills
+Kroger,Dinner with friends at Kroger,Food
+Amtrak,Car rental - Amtrak,Transport
+Amazon,Amazon - course materials for class,Education
+Delta Airlines,Delta Airlines - card transaction,Transport
+Local Cinema,Local Cinema - fun night out,Entertainment
+Nike,Nike - clothing purchase,Shopping
+Walmart,Online order - Walmart,Shopping
+Enterprise Rent-A-Car,Gas station fill-up - Enterprise Rent-A-Car,Transport
+Blue Cross Insurance,Blue Cross Insurance - card transaction,Healthcare
+Campus Bookstore,Textbook purchase - Campus Bookstore,Education
+Unknown Merchant,ATM withdrawal - Unknown Merchant,Others
+AMC Theatres,Weekend outing - AMC Theatres,Entertainment
+Uber Eats,Dinner delivery - Uber Eats,Food
+McDonald's,Lunch at McDonald's,Food
+State Farm Insurance,Debit card purchase: State Farm Insurance,Bills
+Water Utility Dept,Rent payment via Water Utility Dept,Bills
+Chipotle,Purchase - Chipotle,Food
+Gift Shop,Bank service fee - Gift Shop,Others
+Steam,Video game purchase - Steam,Entertainment
+Spotify,Debit card purchase: Spotify,Entertainment
+Target,Home goods - Target,Shopping
+Toll Road Authority,Payment to Toll Road Authority,Transport
+Walmart,Walmart - weekly grocery haul,Food
+Trader Joe's,Grocery purchase at Trader Joe's,Food
+IKEA,Retail purchase at IKEA,Shopping
+Chipotle,Debit card purchase: Chipotle,Food
+Unknown Merchant,POS purchase at Unknown Merchant,Others
+Walmart,Walmart - clothing purchase,Shopping
+Domino's Pizza,Lunch at Domino's Pizza,Food
+Shell,Purchase - Shell,Transport
+City Parking Garage,Flight booking - City Parking Garage,Transport
+Steam,Streaming - Steam,Entertainment
+Shell,Parking fee - Shell,Transport
+Costco,POS purchase at Costco,Shopping
+Mortgage Servicer,Debit card purchase: Mortgage Servicer,Bills
+Property Management Co,Purchase - Property Management Co,Bills
+Udemy,POS purchase at Udemy,Education
+Cash App,Gift purchase - Cash App,Others
+Water Utility Dept,Debit card purchase: Water Utility Dept,Bills
+Macy's,AMZN MKTP US - Macy's,Shopping
+Lyft,Lyft - card transaction,Transport
+Netflix,POS purchase at Netflix,Entertainment
+Costco,Bulk household items - Costco,Shopping
+IKEA,Retail purchase at IKEA,Shopping
+Bowling Alley,Bowling Alley - card transaction,Entertainment
+Student Loan Servicer,Debit card purchase: Student Loan Servicer,Education
+Best Buy,Payment to Best Buy,Shopping
+Kroger,Dinner with friends at Kroger,Food
+Coursera,Student loan payment - Coursera,Education
+Olive Garden,Purchase - Olive Garden,Food
+Olive Garden,Grocery purchase at Olive Garden,Food
+Bank,Payment to Bank,Others
+Domino's Pizza,Grocery purchase at Domino's Pizza,Food
+Metro Transit,Ride to airport - Metro Transit,Transport
+Verizon,Rent payment via Verizon,Bills
+CVS Pharmacy,Purchase - CVS Pharmacy,Healthcare
+Walmart,Walmart - new lamp and towels,Shopping
+Starbucks,Dinner with friends at Starbucks,Food
+Coursera,Textbook purchase - Coursera,Education
+Mortgage Servicer,Mortgage Servicer - card transaction,Bills
+Target,Grocery pickup - Target,Food
+Student Loan Servicer,Payment to Student Loan Servicer,Education
+ATM,Miscellaneous payment - ATM,Others
+eBay,AMZN MKTP US - eBay,Shopping
+Walgreens,Urgent care visit - Walgreens,Healthcare
+Etsy,AMZN MKTP US - Etsy,Shopping
+Macy's,Payment to Macy's,Shopping
+CVS Pharmacy,Snacks and cosmetics run - CVS Pharmacy,Shopping
+AT&T,Insurance premium - AT&T,Bills
+Amazon,POS purchase at Amazon,Shopping
+University Tuition Office,Online course - University Tuition Office,Education
+Nordstrom,Home goods - Nordstrom,Shopping
+University Tuition Office,Tuition payment - University Tuition Office,Education
+City Parking Garage,Gas station fill-up - City Parking Garage,Transport
+Whole Foods,Debit card purchase: Whole Foods,Food
+PlayStation Store,Purchase - PlayStation Store,Entertainment
+eBay,Payment to eBay,Shopping
+Spotify,POS purchase at Spotify,Entertainment
+City Power & Water,Recurring bill - City Power & Water,Bills
+Target,Target - card transaction,Shopping
