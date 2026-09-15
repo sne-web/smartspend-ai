@@ -1,6 +1,13 @@
-import { useState, type FormEvent } from "react"
-import type { TransactionInput } from "../lib/endpoints"
-import type { TransactionType } from "../types"
+import { useEffect, useState, type FormEvent } from "react"
+import { predictCategory, type TransactionInput } from "../lib/endpoints"
+import type { PredictionResponse, TransactionType } from "../types"
+
+const PREDICTION_DEBOUNCE_MS = 500
+// This model's confidences run much lower than a generic classifier's - with
+// 8 categories, random guessing scores ~12.5%, and even correct predictions
+// from live testing topped out around 0.35-0.39. Calibrated to that observed
+// range, not a textbook cutoff.
+const LIKELY_CONFIDENCE_THRESHOLD = 0.35
 
 interface TransactionFormProps {
   initialValues?: Partial<TransactionInput>
@@ -25,6 +32,45 @@ function TransactionForm({ initialValues, onSubmit, onCancel, submitLabel = "Sav
 
   const [error, setError] = useState<string | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const [prediction, setPrediction] = useState<PredictionResponse | null>(null)
+  const [predictionLoading, setPredictionLoading] = useState(false)
+
+  // Debounced category prediction: re-runs on every merchant/description
+  // keystroke, but the cleanup function cancels the previous pending timeout
+  // before a new one is scheduled, so a real request only fires once the user
+  // pauses for PREDICTION_DEBOUNCE_MS - not on every keystroke.
+  useEffect(() => {
+    const trimmedMerchant = merchant.trim()
+    const trimmedDescription = description.trim()
+
+    if (!trimmedMerchant && !trimmedDescription) {
+      setPrediction(null)
+      setPredictionLoading(false)
+      return
+    }
+
+    let cancelled = false
+    setPredictionLoading(true)
+
+    const timeoutId = setTimeout(() => {
+      predictCategory(trimmedMerchant, trimmedDescription)
+        .then((result) => {
+          if (!cancelled) setPrediction(result)
+        })
+        .catch(() => {
+          // Silently ignore - a failed suggestion should never error or block the form.
+        })
+        .finally(() => {
+          if (!cancelled) setPredictionLoading(false)
+        })
+    }, PREDICTION_DEBOUNCE_MS)
+
+    return () => {
+      cancelled = true
+      clearTimeout(timeoutId)
+    }
+  }, [merchant, description])
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault()
@@ -108,6 +154,25 @@ function TransactionForm({ initialValues, onSubmit, onCancel, submitLabel = "Sav
           placeholder="e.g. Groceries"
           className={inputClass}
         />
+        {predictionLoading && (
+          <p className="text-xs text-dark-olive/50 mt-1">Checking category…</p>
+        )}
+        {!predictionLoading && prediction && (
+          <div className="flex items-center gap-2 mt-1">
+            <span className="text-xs text-dark-olive/70">
+              Suggested:{" "}
+              <span className="font-medium text-deep-maroon">{prediction.category}</span>{" "}
+              ({prediction.confidence >= LIKELY_CONFIDENCE_THRESHOLD ? "likely" : "maybe"})
+            </span>
+            <button
+              type="button"
+              onClick={() => setCategory(prediction.category)}
+              className="text-xs font-medium text-sage-olive hover:underline transition-colors duration-200"
+            >
+              Use this
+            </button>
+          </div>
+        )}
       </div>
 
       <div className="grid grid-cols-2 gap-4">

@@ -42,3 +42,8 @@ export interface DateRangeResponse {
   start_date: string
   end_date: string
 }
+
+export interface PredictionResponse {
+  category: string
+  confidence: number
+}

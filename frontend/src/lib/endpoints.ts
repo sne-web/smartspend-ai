@@ -3,6 +3,7 @@ import type {
   CategoryBreakdown,
   DashboardSummary,
   DateRangeResponse,
+  PredictionResponse,
   SpendingTrendPoint,
   Transaction,
   TransactionType,
@@ -103,4 +104,8 @@ export type DateRangePreset = "today" | "7d" | "30d" | "this_month" | "this_year
 
 export function getDateRangePreset(preset: DateRangePreset): Promise<DateRangeResponse> {
   return api.get(`/dashboard/date-range/${preset}`).then((res) => res.data)
+}
+
+export function predictCategory(merchant: string, description: string): Promise<PredictionResponse> {
+  return api.post("/transactions/predict-category", { merchant, description }).then((res) => res.data)
 }
