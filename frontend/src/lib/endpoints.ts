@@ -2,6 +2,7 @@ import { api } from "./api"
 import type {
   CategoryBreakdown,
   DashboardSummary,
+  DateRangeResponse,
   SpendingTrendPoint,
   Transaction,
   TransactionType,
@@ -96,4 +97,10 @@ export function getCategoryBreakdown(params?: DateRangeParams): Promise<Category
 
 export function getSpendingTrend(params?: SpendingTrendParams): Promise<SpendingTrendPoint[]> {
   return api.get("/dashboard/spending-trend", { params }).then((res) => res.data)
+}
+
+export type DateRangePreset = "today" | "7d" | "30d" | "this_month" | "this_year"
+
+export function getDateRangePreset(preset: DateRangePreset): Promise<DateRangeResponse> {
+  return api.get(`/dashboard/date-range/${preset}`).then((res) => res.data)
 }

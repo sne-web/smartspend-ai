@@ -37,3 +37,8 @@ export interface SpendingTrendPoint {
   period_label: string
   total: number
 }
+
+export interface DateRangeResponse {
+  start_date: string
+  end_date: string
+}
