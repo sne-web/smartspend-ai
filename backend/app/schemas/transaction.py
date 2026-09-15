@@ -36,3 +36,13 @@ class TransactionResponse(BaseModel):
     created_at: datetime
 
     model_config = {"from_attributes": True}
+
+
+class CategoryPredictionRequest(BaseModel):
+    merchant: str
+    description: str
+
+
+class CategoryPredictionResponse(BaseModel):
+    category: str
+    confidence: float
