@@ -6,6 +6,7 @@ import {
   register as registerRequest,
   type RegisterInput,
 } from "../lib/endpoints"
+import { getErrorStatus } from "../lib/errors"
 import type { User } from "../types"
 
 interface AuthContextValue {
@@ -30,8 +31,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     getMe()
       .then(setUser)
-      .catch(() => {
-        clearToken()
+      .catch((err) => {
+        // Only treat this as "the token is actually invalid" on a real 401.
+        // A network failure (backend unreachable) means we simply couldn't
+        // check - clearing a possibly-still-valid token here would force a
+        // fresh login over what might just be a few seconds of downtime.
+        if (getErrorStatus(err) === 401) {
+          clearToken()
+        }
         setUser(null)
       })
       .finally(() => setIsLoading(false))

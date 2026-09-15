@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { useAuth } from "../context/AuthContext"
+import { getErrorStatus } from "../lib/errors"
 
 function Register() {
   const { register } = useAuth()
@@ -24,8 +25,12 @@ function Register() {
         opening_balance: Number(openingBalance),
       })
       navigate("/dashboard")
-    } catch {
-      setError("Could not create account. That email may already be registered.")
+    } catch (err) {
+      setError(
+        getErrorStatus(err) === 400
+          ? "That email is already registered."
+          : "Couldn't create your account. Please check your connection and try again."
+      )
     } finally {
       setIsSubmitting(false)
     }

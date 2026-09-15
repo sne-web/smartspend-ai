@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { useAuth } from "../context/AuthContext"
+import { getErrorStatus } from "../lib/errors"
 
 function Login() {
   const { login } = useAuth()
@@ -17,8 +18,12 @@ function Login() {
     try {
       await login(email, password)
       navigate("/dashboard")
-    } catch {
-      setError("Invalid email or password.")
+    } catch (err) {
+      setError(
+        getErrorStatus(err) === 401
+          ? "Invalid email or password."
+          : "Couldn't log in. Please check your connection and try again."
+      )
     } finally {
       setIsSubmitting(false)
     }

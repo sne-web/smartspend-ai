@@ -104,8 +104,12 @@ function Transactions() {
     if (!window.confirm(`Delete this ${label}? This can't be undone.`)) {
       return
     }
-    await deleteTransaction(tx.id)
-    fetchList()
+    try {
+      await deleteTransaction(tx.id)
+      fetchList()
+    } catch {
+      setError("Couldn't delete transaction. Please try again.")
+    }
   }
 
   const inputClass =

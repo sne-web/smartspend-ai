@@ -1,5 +1,6 @@
 import { useEffect, useState, type FormEvent } from "react"
 import { predictCategory, type TransactionInput } from "../lib/endpoints"
+import { getErrorStatus } from "../lib/errors"
 import type { PredictionResponse, TransactionType } from "../types"
 
 const PREDICTION_DEBOUNCE_MS = 500
@@ -101,8 +102,12 @@ function TransactionForm({ initialValues, onSubmit, onCancel, submitLabel = "Sav
         date: new Date(`${date}T00:00:00`).toISOString(),
         payment_method: paymentMethod.trim() || null,
       })
-    } catch {
-      setError("Couldn't save transaction.")
+    } catch (err) {
+      setError(
+        getErrorStatus(err) === undefined
+          ? "Couldn't reach the server. Check your connection and try again."
+          : "Couldn't save transaction. Please check the details and try again."
+      )
     } finally {
       setIsSubmitting(false)
     }

@@ -122,11 +122,26 @@ function Dashboard() {
   const currency = user?.preferred_currency ?? "USD"
 
   // Resolve the selected preset to a concrete date range whenever it changes.
+  // If this fails, `range` never gets set, so the next effect (which every
+  // range-dependent section's loading state depends on) never runs either -
+  // without the catch here, those sections would stay "Loading…" forever
+  // instead of ever reaching an error state.
   useEffect(() => {
     let cancelled = false
-    getDateRangePreset(preset).then((data) => {
-      if (!cancelled) setRange(data)
-    })
+    getDateRangePreset(preset)
+      .then((data) => {
+        if (!cancelled) setRange(data)
+      })
+      .catch(() => {
+        if (cancelled) return
+        const message = "Couldn't load date range."
+        setSummaryError(message)
+        setCategoryError(message)
+        setTrendError(message)
+        setSummaryLoading(false)
+        setCategoryLoading(false)
+        setTrendLoading(false)
+      })
     return () => {
       cancelled = true
     }
