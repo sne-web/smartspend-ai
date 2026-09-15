@@ -1,6 +1,7 @@
 import { useEffect, useState, type FormEvent } from "react"
 import AppHeader from "../components/AppHeader"
 import Modal from "../components/Modal"
+import SectionState from "../components/SectionState"
 import TransactionForm from "../components/TransactionForm"
 import { useAuth } from "../context/AuthContext"
 import {
@@ -108,18 +109,18 @@ function Transactions() {
   }
 
   const inputClass =
-    "border border-[#717744]/40 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#717744]"
+    "border border-sage-olive/40 rounded px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-sage-olive"
 
   return (
-    <div className="min-h-screen bg-[#D9CAB3]">
+    <div className="min-h-screen bg-warm-cream">
       <AppHeader active="transactions" />
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-6 flex flex-col gap-6">
-        <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-bold text-[#5E0B15]">Transactions</h2>
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <h2 className="text-2xl font-bold text-deep-maroon">Transactions</h2>
           <button
             onClick={() => setShowAddModal(true)}
-            className="bg-[#5E0B15] text-white font-medium rounded px-4 py-2 hover:bg-[#90323D] transition-colors"
+            className="bg-deep-maroon text-white font-medium rounded px-4 py-2.5 hover:bg-muted-brick transition-colors duration-200"
           >
             + Add transaction
           </button>
@@ -127,7 +128,7 @@ function Transactions() {
 
         <form onSubmit={applyFilters} className="bg-white rounded-lg shadow-sm p-4 flex flex-wrap gap-3 items-end">
           <div>
-            <label className="block text-xs font-medium text-[#373D20]/70 mb-1">Merchant</label>
+            <label className="block text-xs font-medium text-dark-olive/70 mb-1">Merchant</label>
             <input
               value={merchantFilter}
               onChange={(e) => setMerchantFilter(e.target.value)}
@@ -136,7 +137,7 @@ function Transactions() {
             />
           </div>
           <div>
-            <label className="block text-xs font-medium text-[#373D20]/70 mb-1">Category</label>
+            <label className="block text-xs font-medium text-dark-olive/70 mb-1">Category</label>
             <input
               value={categoryFilter}
               onChange={(e) => setCategoryFilter(e.target.value)}
@@ -145,7 +146,7 @@ function Transactions() {
             />
           </div>
           <div>
-            <label className="block text-xs font-medium text-[#373D20]/70 mb-1">Date</label>
+            <label className="block text-xs font-medium text-dark-olive/70 mb-1">Date</label>
             <input
               type="date"
               value={dateFilter}
@@ -154,7 +155,7 @@ function Transactions() {
             />
           </div>
           <div>
-            <label className="block text-xs font-medium text-[#373D20]/70 mb-1">Type</label>
+            <label className="block text-xs font-medium text-dark-olive/70 mb-1">Type</label>
             <select
               value={typeFilter}
               onChange={(e) => setTypeFilter(e.target.value as TransactionType | "")}
@@ -168,14 +169,14 @@ function Transactions() {
           <div className="flex gap-2">
             <button
               type="submit"
-              className="bg-[#717744] text-white font-medium rounded px-4 py-2 hover:bg-[#5f6538] transition-colors"
+              className="bg-sage-olive text-white font-medium rounded px-4 py-2.5 hover:bg-[#5f6538] transition-colors duration-200"
             >
               Filter
             </button>
             <button
               type="button"
               onClick={clearFilters}
-              className="bg-white border border-[#90323D]/30 text-[#373D20] font-medium rounded px-4 py-2 hover:bg-[#D9CAB3]/40 transition-colors"
+              className="bg-white border border-muted-brick/30 text-dark-olive font-medium rounded px-4 py-2.5 hover:bg-warm-cream/40 transition-colors duration-200"
             >
               Clear
             </button>
@@ -183,48 +184,47 @@ function Transactions() {
         </form>
 
         <div className="bg-white rounded-lg shadow-sm p-4 flex flex-col gap-3">
-          {error && <p className="text-[#90323D] text-sm py-10 text-center">{error}</p>}
-          {!error && loading && !transactions && (
-            <p className="text-[#373D20]/50 text-sm py-10 text-center">Loading…</p>
-          )}
-          {!error && transactions && transactions.length === 0 && (
-            <p className="text-[#373D20]/50 text-sm py-10 text-center">No transactions match these filters.</p>
-          )}
-          {!error && transactions && transactions.length > 0 && (
-            <div className={`overflow-x-auto transition-opacity ${loading ? "opacity-50" : ""}`}>
+          <SectionState
+            loading={loading}
+            error={error}
+            isEmpty={(transactions?.length ?? 0) === 0}
+            emptyMessage="No transactions match these filters."
+            hasData={(transactions?.length ?? 0) > 0}
+          >
+            <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="text-left text-[#373D20]/70 border-b border-[#373D20]/10">
+                  <tr className="text-left text-dark-olive/70 border-b border-dark-olive/10">
                     <th className="py-2 pr-4 font-medium">Date</th>
                     <th className="py-2 pr-4 font-medium">Category</th>
                     <th className="py-2 pr-4 font-medium">Merchant</th>
                     <th className="py-2 pr-4 font-medium text-right">Amount</th>
-                    <th className="py-2 pr-4 font-medium">Type</th>
+                    <th className="py-2 pr-4 font-medium hidden sm:table-cell">Type</th>
                     <th className="py-2 font-medium">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {transactions.map((tx) => {
+                  {(transactions ?? []).map((tx) => {
                     const isIncome = tx.type === "income"
                     return (
-                      <tr key={tx.id} className="border-b border-[#373D20]/5 last:border-0">
-                        <td className="py-2 pr-4 text-[#373D20]">{formatDate(tx.date)}</td>
-                        <td className="py-2 pr-4 text-[#373D20]">{tx.category}</td>
-                        <td className="py-2 pr-4 text-[#373D20]">{tx.merchant ?? "—"}</td>
+                      <tr key={tx.id} className="border-b border-dark-olive/5 last:border-0 hover:bg-warm-cream/30 transition-colors duration-200">
+                        <td className="py-2 pr-4 text-dark-olive">{formatDate(tx.date)}</td>
+                        <td className="py-2 pr-4 text-dark-olive">{tx.category}</td>
+                        <td className="py-2 pr-4 text-dark-olive">{tx.merchant ?? "—"}</td>
                         <td
                           className={`py-2 pr-4 text-right font-medium tabular-nums ${
-                            isIncome ? "text-[#373D20]" : "text-[#90323D]"
+                            isIncome ? "text-dark-olive" : "text-muted-brick"
                           }`}
                         >
                           {isIncome ? "+" : "-"}
                           {formatCurrency(tx.amount, currency)}
                         </td>
-                        <td className="py-2 pr-4">
+                        <td className="py-2 pr-4 hidden sm:table-cell">
                           <span
                             className={`inline-block rounded-full px-2 py-0.5 text-xs font-medium ${
                               isIncome
-                                ? "bg-[#717744]/15 text-[#373D20]"
-                                : "bg-[#90323D]/10 text-[#90323D]"
+                                ? "bg-sage-olive/15 text-dark-olive"
+                                : "bg-muted-brick/10 text-muted-brick"
                             }`}
                           >
                             {isIncome ? "Income" : "Expense"}
@@ -234,13 +234,13 @@ function Transactions() {
                           <div className="flex gap-3">
                             <button
                               onClick={() => setEditingTransaction(tx)}
-                              className="text-[#717744] hover:underline text-sm font-medium"
+                              className="text-sage-olive hover:underline transition-colors duration-200 text-sm font-medium"
                             >
                               Edit
                             </button>
                             <button
                               onClick={() => handleDelete(tx)}
-                              className="text-[#90323D] hover:underline text-sm font-medium"
+                              className="text-muted-brick hover:underline transition-colors duration-200 text-sm font-medium"
                             >
                               Delete
                             </button>
@@ -252,24 +252,24 @@ function Transactions() {
                 </tbody>
               </table>
             </div>
-          )}
+          </SectionState>
 
           <div className="flex items-center justify-between pt-2">
-            <span className="text-xs text-[#373D20]/60">
+            <span className="text-xs text-dark-olive/60">
               Showing {transactions && transactions.length > 0 ? skip + 1 : 0}–{skip + (transactions?.length ?? 0)}
             </span>
             <div className="flex gap-2">
               <button
                 onClick={() => setSkip((s) => Math.max(0, s - PAGE_SIZE))}
                 disabled={skip === 0}
-                className="bg-white border border-[#90323D]/30 text-[#373D20] text-sm font-medium rounded px-3 py-1.5 hover:bg-[#D9CAB3]/40 transition-colors disabled:opacity-40"
+                className="bg-white border border-muted-brick/30 text-dark-olive text-sm font-medium rounded px-3 py-1.5 hover:bg-warm-cream/40 transition-colors duration-200 disabled:opacity-40"
               >
                 Previous
               </button>
               <button
                 onClick={() => setSkip((s) => s + PAGE_SIZE)}
                 disabled={!transactions || transactions.length < PAGE_SIZE}
-                className="bg-white border border-[#90323D]/30 text-[#373D20] text-sm font-medium rounded px-3 py-1.5 hover:bg-[#D9CAB3]/40 transition-colors disabled:opacity-40"
+                className="bg-white border border-muted-brick/30 text-dark-olive text-sm font-medium rounded px-3 py-1.5 hover:bg-warm-cream/40 transition-colors duration-200 disabled:opacity-40"
               >
                 Next
               </button>

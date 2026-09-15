@@ -11,6 +11,7 @@ import {
   YAxis,
 } from "recharts"
 import AppHeader from "../components/AppHeader"
+import SectionState from "../components/SectionState"
 import { useAuth } from "../context/AuthContext"
 import {
   getCategoryBreakdown,
@@ -72,13 +73,13 @@ function StatCard({
   hasValue: boolean
 }) {
   return (
-    <div className="bg-white rounded-lg shadow-sm p-4 flex flex-col gap-1">
-      <span className="text-xs font-medium text-[#373D20]/70">{label}</span>
+    <div className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 p-4 flex flex-col gap-1">
+      <span className="text-xs font-medium text-dark-olive/70">{label}</span>
       {!hasValue && loading ? (
-        <span className="text-lg text-[#373D20]/40">Loading…</span>
+        <span className="text-lg text-dark-olive/40">Loading…</span>
       ) : (
         <span
-          className={`text-2xl font-semibold text-[#5E0B15] transition-opacity ${loading ? "opacity-50" : ""}`}
+          className={`text-2xl font-semibold text-deep-maroon transition-opacity duration-200 ${loading ? "opacity-50" : ""}`}
         >
           {value}
         </span>
@@ -89,39 +90,10 @@ function StatCard({
 
 function ChartCard({ title, children }: { title: string; children: ReactNode }) {
   return (
-    <div className="bg-white rounded-lg shadow-sm p-4 flex flex-col gap-3">
-      <h2 className="text-[#5E0B15] font-semibold">{title}</h2>
+    <div className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 p-4 flex flex-col gap-3">
+      <h2 className="text-lg font-semibold text-deep-maroon">{title}</h2>
       {children}
     </div>
-  )
-}
-
-function SectionState({
-  loading,
-  error,
-  isEmpty,
-  emptyMessage,
-  hasData,
-  children,
-}: {
-  loading: boolean
-  error: string | null
-  isEmpty: boolean
-  emptyMessage: string
-  hasData: boolean
-  children: ReactNode
-}) {
-  if (error) {
-    return <p className="text-[#90323D] text-sm py-10 text-center">{error}</p>
-  }
-  if (loading && !hasData) {
-    return <p className="text-[#373D20]/50 text-sm py-10 text-center">Loading…</p>
-  }
-  if (isEmpty) {
-    return <p className="text-[#373D20]/50 text-sm py-10 text-center">{emptyMessage}</p>
-  }
-  return (
-    <div className={`transition-opacity ${loading ? "opacity-50" : ""}`}>{children}</div>
   )
 }
 
@@ -234,30 +206,33 @@ function Dashboard() {
   }, [])
 
   return (
-    <div className="min-h-screen bg-[#D9CAB3]">
+    <div className="min-h-screen bg-warm-cream">
       <AppHeader active="dashboard" />
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-6 flex flex-col gap-6">
-        <div className="flex items-center gap-3">
-          <label htmlFor="date-range" className="text-[#373D20] font-medium">
-            Date range
-          </label>
-          <select
-            id="date-range"
-            value={preset}
-            onChange={(e) => setPreset(e.target.value as DateRangePreset)}
-            className="bg-white border border-[#90323D]/30 rounded px-3 py-2 text-[#373D20] focus:outline-none focus:ring-2 focus:ring-[#717744]"
-          >
-            {PRESET_OPTIONS.map((opt) => (
-              <option key={opt.value} value={opt.value}>
-                {opt.label}
-              </option>
-            ))}
-          </select>
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <h2 className="text-2xl font-bold text-deep-maroon">Dashboard</h2>
+          <div className="flex items-center gap-3">
+            <label htmlFor="date-range" className="text-dark-olive font-medium">
+              Date range
+            </label>
+            <select
+              id="date-range"
+              value={preset}
+              onChange={(e) => setPreset(e.target.value as DateRangePreset)}
+              className="bg-white border border-muted-brick/30 rounded px-3 py-2.5 text-dark-olive focus:outline-none focus:ring-2 focus:ring-sage-olive"
+            >
+              {PRESET_OPTIONS.map((opt) => (
+                <option key={opt.value} value={opt.value}>
+                  {opt.label}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
 
         {summaryError && (
-          <p className="text-[#90323D] text-sm">{summaryError}</p>
+          <p className="text-muted-brick text-sm">{summaryError}</p>
         )}
 
         <section className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -354,7 +329,7 @@ function Dashboard() {
         </section>
 
         <section className="bg-white rounded-lg shadow-sm p-4 flex flex-col gap-3">
-          <h2 className="text-[#5E0B15] font-semibold">Recent transactions</h2>
+          <h2 className="text-lg font-semibold text-deep-maroon">Recent transactions</h2>
           <SectionState
             loading={txLoading}
             error={txError}
@@ -365,36 +340,36 @@ function Dashboard() {
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="text-left text-[#373D20]/70 border-b border-[#373D20]/10">
+                  <tr className="text-left text-dark-olive/70 border-b border-dark-olive/10">
                     <th className="py-2 pr-4 font-medium">Date</th>
                     <th className="py-2 pr-4 font-medium">Category</th>
                     <th className="py-2 pr-4 font-medium">Merchant</th>
                     <th className="py-2 pr-4 font-medium text-right">Amount</th>
-                    <th className="py-2 font-medium">Type</th>
+                    <th className="py-2 font-medium hidden sm:table-cell">Type</th>
                   </tr>
                 </thead>
                 <tbody>
                   {(transactions ?? []).map((tx) => {
                     const isIncome = tx.type === "income"
                     return (
-                      <tr key={tx.id} className="border-b border-[#373D20]/5 last:border-0">
-                        <td className="py-2 pr-4 text-[#373D20]">{formatDate(tx.date)}</td>
-                        <td className="py-2 pr-4 text-[#373D20]">{tx.category}</td>
-                        <td className="py-2 pr-4 text-[#373D20]">{tx.merchant ?? "—"}</td>
+                      <tr key={tx.id} className="border-b border-dark-olive/5 last:border-0 hover:bg-warm-cream/30 transition-colors duration-200">
+                        <td className="py-2 pr-4 text-dark-olive">{formatDate(tx.date)}</td>
+                        <td className="py-2 pr-4 text-dark-olive">{tx.category}</td>
+                        <td className="py-2 pr-4 text-dark-olive">{tx.merchant ?? "—"}</td>
                         <td
                           className={`py-2 pr-4 text-right font-medium tabular-nums ${
-                            isIncome ? "text-[#373D20]" : "text-[#90323D]"
+                            isIncome ? "text-dark-olive" : "text-muted-brick"
                           }`}
                         >
                           {isIncome ? "+" : "-"}
                           {formatCurrency(tx.amount, currency)}
                         </td>
-                        <td className="py-2">
+                        <td className="py-2 hidden sm:table-cell">
                           <span
                             className={`inline-block rounded-full px-2 py-0.5 text-xs font-medium ${
                               isIncome
-                                ? "bg-[#717744]/15 text-[#373D20]"
-                                : "bg-[#90323D]/10 text-[#90323D]"
+                                ? "bg-sage-olive/15 text-dark-olive"
+                                : "bg-muted-brick/10 text-muted-brick"
                             }`}
                           >
                             {isIncome ? "Income" : "Expense"}

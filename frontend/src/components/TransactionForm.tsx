@@ -63,13 +63,13 @@ function TransactionForm({ initialValues, onSubmit, onCancel, submitLabel = "Sav
   }
 
   const inputClass =
-    "w-full border border-[#717744]/40 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#717744]"
-  const labelClass = "block text-sm font-medium text-[#373D20] mb-1"
+    "w-full border border-sage-olive/40 rounded px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-sage-olive"
+  const labelClass = "block text-sm font-medium text-dark-olive mb-1"
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       {error && (
-        <p className="text-sm font-medium text-[#90323D] bg-[#90323D]/10 rounded px-3 py-2">{error}</p>
+        <p className="text-sm font-medium text-muted-brick bg-muted-brick/10 rounded px-3 py-2">{error}</p>
       )}
 
       <div className="grid grid-cols-2 gap-4">
@@ -159,7 +159,7 @@ function TransactionForm({ initialValues, onSubmit, onCancel, submitLabel = "Sav
         <button
           type="submit"
           disabled={isSubmitting}
-          className="flex-1 bg-[#5E0B15] text-white font-medium rounded px-4 py-2 hover:bg-[#90323D] transition-colors disabled:opacity-60"
+          className="flex-1 bg-deep-maroon text-white font-medium rounded px-4 py-2.5 hover:bg-muted-brick transition-colors duration-200 disabled:opacity-60"
         >
           {isSubmitting ? "Saving..." : submitLabel}
         </button>
@@ -167,7 +167,7 @@ function TransactionForm({ initialValues, onSubmit, onCancel, submitLabel = "Sav
           type="button"
           onClick={onCancel}
           disabled={isSubmitting}
-          className="flex-1 bg-white border border-[#90323D]/30 text-[#373D20] font-medium rounded px-4 py-2 hover:bg-[#D9CAB3]/40 transition-colors disabled:opacity-60"
+          className="flex-1 bg-white border border-muted-brick/30 text-dark-olive font-medium rounded px-4 py-2.5 hover:bg-warm-cream/40 transition-colors duration-200 disabled:opacity-60"
         >
           Cancel
         </button>

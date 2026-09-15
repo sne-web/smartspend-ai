@@ -25,52 +25,52 @@ function Login() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#D9CAB3] px-4">
+    <div className="min-h-screen flex items-center justify-center bg-warm-cream px-4">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-sm bg-white rounded-lg shadow-md p-8 space-y-4 border border-[#90323D]/20"
+        className="w-full max-w-sm bg-white rounded-lg shadow-md p-8 space-y-4 border border-muted-brick/20"
       >
-        <h1 className="text-2xl font-bold text-[#5E0B15]">Log in</h1>
+        <h1 className="text-2xl font-bold text-deep-maroon">Log in</h1>
 
         {error && (
-          <p className="text-sm font-medium text-[#90323D] bg-[#90323D]/10 rounded px-3 py-2">
+          <p className="text-sm font-medium text-muted-brick bg-muted-brick/10 rounded px-3 py-2">
             {error}
           </p>
         )}
 
         <div>
-          <label className="block text-sm font-medium text-[#373D20] mb-1">Email</label>
+          <label className="block text-sm font-medium text-dark-olive mb-1">Email</label>
           <input
             type="email"
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full border border-[#717744]/40 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#717744]"
+            className="w-full border border-sage-olive/40 rounded px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-sage-olive"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-[#373D20] mb-1">Password</label>
+          <label className="block text-sm font-medium text-dark-olive mb-1">Password</label>
           <input
             type="password"
             required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full border border-[#717744]/40 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#717744]"
+            className="w-full border border-sage-olive/40 rounded px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-sage-olive"
           />
         </div>
 
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full bg-[#5E0B15] text-white font-medium rounded px-4 py-2 hover:bg-[#90323D] transition-colors disabled:opacity-60"
+          className="w-full bg-deep-maroon text-white font-medium rounded px-4 py-2.5 hover:bg-muted-brick transition-colors duration-200 disabled:opacity-60"
         >
           {isSubmitting ? "Logging in..." : "Log in"}
         </button>
 
-        <p className="text-sm text-[#373D20] text-center">
+        <p className="text-sm text-dark-olive text-center">
           Don't have an account?{" "}
-          <Link to="/register" className="text-[#5E0B15] underline">
+          <Link to="/register" className="text-deep-maroon underline">
             Register
           </Link>
         </p>
