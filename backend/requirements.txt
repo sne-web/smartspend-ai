@@ -14,3 +14,7 @@ email-validator
 scikit-learn
 pandas
 joblib
+
+# Testing
+pytest
+httpx
