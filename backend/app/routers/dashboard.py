@@ -17,11 +17,22 @@ from app.schemas.dashboard import (
 
 router = APIRouter(prefix="/dashboard", tags=["dashboard"])
 
-_TREND_FORMATS = {
+_SQLITE_TREND_FORMATS = {
     "day": "%Y-%m-%d",
     "week": "%Y-W%W",
     "month": "%Y-%m",
 }
+_POSTGRES_TREND_FORMATS = {
+    "day": "YYYY-MM-DD",
+    "week": 'IYYY-"W"IW',
+    "month": "YYYY-MM",
+}
+
+
+def _trend_period_label(db: Session, group_by: str):
+    if db.bind.dialect.name == "postgresql":
+        return func.to_char(Transaction.date, _POSTGRES_TREND_FORMATS[group_by]).label("period_label")
+    return func.strftime(_SQLITE_TREND_FORMATS[group_by], Transaction.date).label("period_label")
 
 
 def _user_transactions(db: Session, current_user: User, start_date: datetime | None, end_date: datetime | None):
@@ -88,12 +99,12 @@ def get_spending_trend(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
-    if group_by not in _TREND_FORMATS:
+    if group_by not in _SQLITE_TREND_FORMATS:
         raise HTTPException(status_code=400, detail="group_by must be one of: day, week, month")
 
     query = _user_transactions(db, current_user, start_date, end_date).filter(Transaction.type == "expense")
 
-    period_label = func.strftime(_TREND_FORMATS[group_by], Transaction.date).label("period_label")
+    period_label = _trend_period_label(db, group_by)
     rows = (
         query.with_entities(period_label, func.sum(Transaction.amount).label("total"))
         .group_by(period_label)
